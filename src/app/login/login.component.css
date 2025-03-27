@@ -1,0 +1,104 @@
+/* Containerul principal */
+.login-page {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #74ABE2, #5563DE);
+  }
+  
+  /* Cardul de login */
+  .login-container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width: 320px;
+    text-align: center;
+    animation: fadeInUp 0.6s ease-out;
+  }
+  
+  .login-container h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+  
+  /* Formularul */
+  .login-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Input-urile */
+  .login-container input {
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  
+  .login-container input:focus {
+    border-color: #5563DE;
+  }
+  
+  /* Butonul de login */
+  .login-container button {
+    background-color: #5563DE;
+    color: #fff;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .login-container button:hover {
+    background-color: #3b46b3;
+    transform: scale(1.02);
+  }
+  
+  /* Link-ul de înregistrare */
+  .register-link {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .register-link a {
+    color: #5563DE;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .register-link a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Animația de fadeInUp */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Exemplu de stilizare pentru mesajele de eroare */
+.error {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+  }
+  
+  /* Opțional: stil pentru grupul de mesaje */
+  .error-messages {
+    margin-top: 0.5rem;
+  }
+  
+  

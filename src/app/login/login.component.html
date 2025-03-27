@@ -2,31 +2,44 @@
   <div class="login-container">
     <h2>Autentificare</h2>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      
-      <!-- Grup pentru Username -->
-      <div class="form-group">
-        <input type="text" formControlName="username" placeholder="Username">
-        <div class="error-messages" *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.invalid">
-          <small class="error" *ngIf="loginForm.get('username')?.errors?.['required']">
-            Username este obligatoriu.
-          </small>
-          <!-- Dacă ai adăugat și alte validări (ex: minlength) pentru username, le poți adăuga aici -->
-        </div>
-      </div>
-      
-      <!-- Grup pentru Password -->
-      <div class="form-group">
-        <input type="password" formControlName="password" placeholder="Password">
-        <div class="error-messages" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
-          <small class="error" *ngIf="loginForm.get('password')?.errors?.['required']">
-            Parola este obligatorie.
-          </small>
-          <small class="error" *ngIf="loginForm.get('password')?.errors?.['minlength']">
-            Parola trebuie să aibă cel puțin 6 caractere.
-          </small>
-        </div>
-      </div>
-      
+
+      <!-- Grup pentru Name -->
+      <!-- Câmp pentru Name -->
+<div class="form-group">
+  <input type="text" formControlName="name" placeholder="Name" />
+  <!-- Erori de validare locale (Angular) -->
+  <div class="error-messages" *ngIf="loginForm.get('name')?.touched && loginForm.get('name')?.invalid">
+    <small class="error" *ngIf="loginForm.get('name')?.errors?.['required']">
+      Name este obligatoriu.
+    </small>
+    <small class="error" *ngIf="loginForm.get('name')?.errors?.['minlength']">
+      Name trebuie să aibă cel puțin 3 caractere.
+    </small>
+  </div>
+  <!-- Eroarea de la server când userul nu e găsit (404) -->
+  <div class="error-messages" *ngIf="nameError">
+    <small class="error">{{ nameError }}</small>
+  </div>
+</div>
+
+<!-- Câmp pentru Password -->
+<div class="form-group">
+  <input type="password" formControlName="password" placeholder="Password" />
+  <!-- Erori de validare locale (Angular) -->
+  <div class="error-messages" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+    <small class="error" *ngIf="loginForm.get('password')?.errors?.['required']">
+      Parola este obligatorie.
+    </small>
+    <small class="error" *ngIf="loginForm.get('password')?.errors?.['minlength']">
+      Parola trebuie să aibă cel puțin 6 caractere.
+    </small>
+  </div>
+  <!-- Eroarea de la server pentru parolă greșită (401) -->
+  <div class="error-messages" *ngIf="passwordError">
+    <small class="error">{{ passwordError }}</small>
+  </div>
+</div>
+
       <button type="submit" [disabled]="!loginForm.valid">Login</button>
     </form>
     <p class="register-link">

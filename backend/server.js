@@ -7,15 +7,16 @@ const studentRoutes = require("./routes/students");
 const teacherRoutes = require("./routes/teachers");
 const subjectRoutes = require("./routes/subjects");
 const authRoutes = require("./routes/auth");
+const verifyToken = require('./middlewares/verifyToken');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
-app.use("/api/students", studentRoutes);
-app.use("/api/teachers", teacherRoutes);
-app.use("/api/subjects", subjectRoutes);
+app.use("/api/students", verifyToken, studentRoutes);
+app.use("/api/teachers", verifyToken, teacherRoutes);
+app.use("/api/subjects", verifyToken, subjectRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI)

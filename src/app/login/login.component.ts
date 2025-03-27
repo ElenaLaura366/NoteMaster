@@ -2,19 +2,20 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   standalone: true
 })
 export class LoginComponent {
   loginForm = new FormGroup({
-    username: new FormControl('', [Validators.required]),
+    username: new FormControl('', [Validators.required, Validators.minLength(3)]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)])
-  });
+  });  
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -30,7 +31,6 @@ export class LoginComponent {
           }
         });
     }
-    
   }
 
   navigateToRegister() {

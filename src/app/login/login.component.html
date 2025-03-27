@@ -2,8 +2,31 @@
   <div class="login-container">
     <h2>Autentificare</h2>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <input type="text" formControlName="username" placeholder="Username">
-      <input type="password" formControlName="password" placeholder="Password">
+      
+      <!-- Grup pentru Username -->
+      <div class="form-group">
+        <input type="text" formControlName="username" placeholder="Username">
+        <div class="error-messages" *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.invalid">
+          <small class="error" *ngIf="loginForm.get('username')?.errors?.['required']">
+            Username este obligatoriu.
+          </small>
+          <!-- Dacă ai adăugat și alte validări (ex: minlength) pentru username, le poți adăuga aici -->
+        </div>
+      </div>
+      
+      <!-- Grup pentru Password -->
+      <div class="form-group">
+        <input type="password" formControlName="password" placeholder="Password">
+        <div class="error-messages" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+          <small class="error" *ngIf="loginForm.get('password')?.errors?.['required']">
+            Parola este obligatorie.
+          </small>
+          <small class="error" *ngIf="loginForm.get('password')?.errors?.['minlength']">
+            Parola trebuie să aibă cel puțin 6 caractere.
+          </small>
+        </div>
+      </div>
+      
       <button type="submit" [disabled]="!loginForm.valid">Login</button>
     </form>
     <p class="register-link">

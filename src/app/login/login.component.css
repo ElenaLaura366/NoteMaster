@@ -88,4 +88,17 @@
       transform: translateY(0);
     }
   }
+
+  /* Exemplu de stilizare pentru mesajele de eroare */
+.error {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+  }
+  
+  /* Opțional: stil pentru grupul de mesaje */
+  .error-messages {
+    margin-top: 0.5rem;
+  }
+  
   

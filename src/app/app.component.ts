@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
   selector: 'app-root',
   imports: [LoginComponent],
   templateUrl: './app.component.html',
+  standalone: true,
   styleUrl: './app.component.css'
 })
 export class AppComponent {

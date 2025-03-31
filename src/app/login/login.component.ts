@@ -3,12 +3,13 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterOutlet],
   standalone: true
 })
 export class LoginComponent {
@@ -56,8 +57,10 @@ export class LoginComponent {
         });
     }
   }
-  
-  navigateToRegister() {
-    this.router.navigate(['/register']);
+
+  onResetPassword() {
+    console.log("Navigare către reset-password");
+    this.router.navigate(['/reset-password']);
   }
+  
 }

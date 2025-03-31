@@ -1,19 +1,20 @@
-<div class="bg-white-950 text-gray-100 h-lvh">
+<div class="bg-linear-to-r from-blue-800 to-indigo-800 text-white h-lvh">
     <div class="flex flex-col justify-center items-center p-40 text-center">
-        <h1 class="font-lora text-4xl text-zinc-950">Please Login</h1>
+        <h1 class="font-lora text-4xl text-white">Te rugăm să te autentifici</h1>
         <form class="flex flex-col items-start p-8">
             <div class="flex flex-col items-start">
-                <label class="mb-2 text-zinc-950" for="email">Email or Full Name:</label>
-                <input class="p-2 bg-transparent border border-zinc-950 text-zinc-950 rounded-md" type="email" id="email" name="email" required>
+                <label class="mb-2 text-white">Adresa de email:</label>
+                <input class="p-2 bg-transparent border border-white text-white rounded-md" type="email">
             </div>
             <div class="flex flex-col items-start">
-                <label class="mb-2 text-zinc-950" for="password">Password:</label>
-                <input class="p-2 bg-transparent border border-zinc-950 text-zinc-950 rounded-md" type="password" id="password" name="password" required>
+                <label class="mb-2 text-white">Parola:</label>
+                <input class="p-2 bg-transparent border border-white text-white rounded-md" type="password">
             </div>
             <div class="flex flex-col w-full mt-2">
-                <a class="text-zinc-950 mb-2 text-left" href="#">Reset password</a>
-                <button type="submit" class="border bg-gray-100 text-zinc-950 p-2 hover:bg-zinc-950 hover:text-gray-100">LOGIN</button>
+                <a class="text-white mb-2 text-left" (click)="onResetPassword()" style="cursor: pointer;">Reset password</a>
+                <button type="submit" class="border border-white bg-white text-indigo-800 p-2 hover:bg-transparent hover:text-white">Autentificare</button>
             </div>
         </form>
     </div>
 </div>
+<router-outlet></router-outlet>

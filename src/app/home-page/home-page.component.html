@@ -1,12 +1,12 @@
-<div class="home-page">
-    <div class="overlay">
-      <div class="content">
-        <h1>Note în Catalog</h1>
-        <p>Gestionează-ți notele cu ușurință și eficiență</p>
-        <div class="button-group">
-          <button class="login-button" (click)="navigateToLogin()">Login</button>
+<div class="bg-linear-to-r from-blue-800 to-indigo-800 text-white h-lvh flex flex-col justify-center items-center p-40 text-center">
+    <div class="">
+      <div class="content flex flex-col justify-center items-center text-center">
+        <h1 class="text-8xl mb-4">Note în Catalog</h1>
+        <p class="text-2xl">Gestionează-ți notele cu ușurință și eficiență</p>
+        <div class="">
+          <button class="bg-white border border-white text-indigo-800 rounded-3xl p-4 mt-4 hover:bg-transparent hover:border-white hover:text-white" (click)="navigateToLogin()">Autentificare</button>
         </div>
       </div>
     </div>
   </div>
-  
+<router-outlet></router-outlet>

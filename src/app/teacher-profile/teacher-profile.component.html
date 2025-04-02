@@ -1,0 +1,47 @@
+<div class="bg-white text-black flex items-center justify-center my-4">
+    <div class="grid grid-rows-[auto,auto,auto] grid-cols-1">
+        <div class="flex items-center justify-center gap-4 p-4">
+            <img src="icon.png" alt="Student" class="w-24 h-24 rounded-full border-2 border-black">
+            <h1 class="text-3xl font-bold">Bine ai revenit John Doe!</h1>
+        </div>
+        <div class="grid grid-cols-3 border-y-2 border-black">
+            <button class="p-4 border-x-2 border-black hover:bg-gradient-to-r from-blue-800 to-indigo-800 hover:text-white" (click)="selectedTab = 'note'">Note Elevi</button>
+            <button class="p-4 border-r-2 border-black hover:bg-gradient-to-r from-blue-800 to-indigo-800 hover:text-white" (click)="selectedTab = 'elevi'">Vizualizare Elevi</button>
+            <button class="p-4 border-r-2 border-black hover:bg-gradient-to-r from-blue-800 to-indigo-800 hover:text-white" (click)="selectedTab = 'istoric'">Istoric note</button>
+        </div>
+        <div class="border-b-2 border-black p-4" *ngIf="selectedTab">
+            <div *ngIf="selectedTab === 'note'">
+                <h1 class="text-2xl font-bold">Adaugă note elevilor</h1>
+                <ul>
+                    <li *ngFor="let elev of elevi" class="my-2 flex items-center justify-between">
+                        <label for="nota-{{ elev }}" class="me-2 text-lg">{{ elev }}:</label>
+                        <input type="number" id="nota-{{ elev }}" placeholder="Nota" class="border border-black p-2 rounded">
+                    </li>
+                </ul>
+                <button class="cursor-pointer mt-4 p-2 bg-linear-to-r from-blue-800 to-indigo-800 text-white rounded " (click)="addNote()">Adaugă Nota</button>
+            </div>
+            <div *ngIf="selectedTab === 'elevi'">
+                <h2 class="text-2xl font-bold">Lista tuturor elevilor</h2>
+                <ul>
+                    <li *ngFor="let elev of elevi" class="my-1 flex items-center justify-between text-lg">{{ elev }}</li>
+                </ul>
+                <h2 class="text-2xl font-bold mt-4">Gestionează elevi</h2>
+                <div class="flex flex-col justify-center">
+                    <input type="text" placeholder="Nume elev" class="border border-black p-2 rounded my-2">
+                    <input type="text" placeholder="Prenume elev" class="border border-black p-2 rounded">
+                    <div class="flex">
+                        <button class="w-[50%] cursor-pointer mt-2 me-2 p-2 bg-linear-to-r from-blue-800 to-indigo-800 text-white rounded " (click)="addElev()">Adaugă Elev</button>
+                        <button class="w-[50%] cursor-pointer mt-2 p-2 bg-linear-to-r from-blue-800 to-indigo-800 text-white rounded " (click)="delElev()">Elimină Elev</button>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="selectedTab === 'istoric'">
+                <h2 class="text-2xl font-bold">Istoric Note</h2>
+                <ul>
+                    <li *ngFor="let elev of elevi" class="my-1 flex items-center justify-between text-lg">{{ elev }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>

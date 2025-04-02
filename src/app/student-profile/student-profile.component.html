@@ -1,0 +1,32 @@
+<div class="bg-white text-black h-lvh flex items-center justify-center">
+    <div class="grid grid-rows-3 grid-cols-1">
+        <div class="flex items-center justify-center gap-4 p-4">
+            <img src="icon.png" alt="Student" class="w-24 h-24 rounded-full border-2 border-black">
+            <h1 class="text-3xl font-bold">Bine ai revenit John Doe!</h1>
+        </div>
+        <div class="grid grid-cols-3 border-y-2 border-black">
+            <button class="p-4 border-x-2 border-black hover:bg-gradient-to-r from-blue-800 to-indigo-800 hover:text-white" (click)="selectedTab = 'note'">Vizualizare note</button>
+            <button class="p-4 border-r-2 border-black hover:bg-gradient-to-r from-blue-800 to-indigo-800 hover:text-white" (click)="selectedTab = 'materii'">Vizualizare materii</button>
+            <button class="p-4 border-r-2 border-black hover:bg-gradient-to-r from-blue-800 to-indigo-800 hover:text-white" (click)="selectedTab = 'istoric'">Istoric note</button>
+        </div>
+        <div class="border-b-2 border-black p-4" *ngIf="selectedTab">
+            <div *ngIf="selectedTab === 'note'">
+                <h2 class="text-xl font-bold">Lista Notelor</h2>
+                <ul>
+                    <li *ngFor="let nota of note">{{ nota.materie }}: {{ nota.valoare }}</li>
+                </ul>
+            </div>
+            <div *ngIf="selectedTab === 'materii'">
+                <h2 class="text-xl font-bold">Lista Materiilor</h2>
+                <ul>
+                    <li *ngFor="let materie of materii">{{ materie }}</li>
+                </ul>
+            </div>
+            <div *ngIf="selectedTab === 'istoric'">
+                <h2 class="text-xl font-bold">Istoric Note</h2>
+                <p>Aici va fi istoricul notelor...</p>
+            </div>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>

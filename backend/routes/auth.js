@@ -15,11 +15,9 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
-    const { name, password } = req.body;
-    // 1. Caută utilizatorul după nume
-    const student = await Student.findOne({ name });
+    const { email, password } = req.body;
+    const student = await Student.findOne({ email });
     if (!student) {
-      // 404: nu există un student cu acest "name"
       return res.status(404).send("User not found");
     }
 
@@ -30,12 +28,20 @@ router.post("/login", async (req, res) => {
     }
 
     // 3. Dacă userul există și parola e corectă, emite token
-    const token = jwt.sign({ userId: student._id }, "your_jwt_secret", { expiresIn: "1h" });
-    res.status(200).send({ token });
+    const token = jwt.sign({ userId: student._id }, "your_jwt_secret", {
+      expiresIn: "1h",
+    });
+    res.status(200).json({
+      token,
+      user: {
+        id: student._id,
+        name: student.name,
+        email: student.email,
+      },
+    });
   } catch (error) {
     res.status(500).send(error);
   }
 });
-
 
 module.exports = router;

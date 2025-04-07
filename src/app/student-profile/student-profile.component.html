@@ -1,32 +1,62 @@
 <div class="bg-white text-black h-lvh flex items-center justify-center">
-    <div class="grid grid-rows-3 grid-cols-1">
-        <div class="flex items-center justify-center gap-4 p-4">
-            <img src="icon.png" alt="Student" class="w-24 h-24 rounded-full border-2 border-black">
-            <h1 class="text-3xl font-bold">Bine ai revenit John Doe!</h1>
+    <div class="grid grid-rows-3 grid-cols-1 w-full max-w-4xl">
+      <!-- Header -->
+      <div class="flex items-center justify-center gap-4 p-4">
+        <img src="icon.png" alt="Student" class="w-24 h-24 rounded-full border-2 border-black">
+        <h1 class="text-3xl font-bold">Bine ai revenit {{student?.name}}!</h1>
+      </div>
+  
+      <!-- Tabs -->
+      <div class="grid grid-cols-3 border-y-2 border-black text-center">
+        <button class="p-4 border-x-2 border-black hover:bg-gradient-to-r from-blue-800 to-indigo-800 hover:text-white" (click)="selectTab('note')">Vizualizare note</button>
+        <button class="p-4 border-r-2 border-black hover:bg-gradient-to-r from-blue-800 to-indigo-800 hover:text-white" (click)="selectTab('materii')">Vizualizare materii</button>
+        <button class="p-4 border-r-2 border-black hover:bg-gradient-to-r from-blue-800 to-indigo-800 hover:text-white" (click)="selectTab('istoric')">Istoric note</button>
+      </div>
+  
+      <!-- Content -->
+      <div class="border-b-2 border-black p-4" *ngIf="selectedTab">
+        <!-- Note curente -->
+        <div *ngIf="selectedTab === 'note'">
+          <h2 class="text-xl font-bold mb-2">Lista Notelor</h2>
+          <ul>
+            <li *ngFor="let nota of note">{{ nota.materie }}: {{ nota.valoare }}</li>
+          </ul>
         </div>
-        <div class="grid grid-cols-3 border-y-2 border-black">
-            <button class="p-4 border-x-2 border-black hover:bg-gradient-to-r from-blue-800 to-indigo-800 hover:text-white" (click)="selectedTab = 'note'">Vizualizare note</button>
-            <button class="p-4 border-r-2 border-black hover:bg-gradient-to-r from-blue-800 to-indigo-800 hover:text-white" (click)="selectedTab = 'materii'">Vizualizare materii</button>
-            <button class="p-4 border-r-2 border-black hover:bg-gradient-to-r from-blue-800 to-indigo-800 hover:text-white" (click)="selectedTab = 'istoric'">Istoric note</button>
+  
+        <!-- Lista materiilor -->
+        <div *ngIf="selectedTab === 'materii'">
+          <h2 class="text-xl font-bold mb-2">Lista Materiilor</h2>
+          <ul>
+            <li *ngFor="let materie of materii">{{ materie }}</li>
+          </ul>
         </div>
-        <div class="border-b-2 border-black p-4" *ngIf="selectedTab">
-            <div *ngIf="selectedTab === 'note'">
-                <h2 class="text-xl font-bold">Lista Notelor</h2>
-                <ul>
-                    <li *ngFor="let nota of note">{{ nota.materie }}: {{ nota.valoare }}</li>
-                </ul>
-            </div>
-            <div *ngIf="selectedTab === 'materii'">
-                <h2 class="text-xl font-bold">Lista Materiilor</h2>
-                <ul>
-                    <li *ngFor="let materie of materii">{{ materie }}</li>
-                </ul>
-            </div>
-            <div *ngIf="selectedTab === 'istoric'">
-                <h2 class="text-xl font-bold">Istoric Note</h2>
-                <p>Aici va fi istoricul notelor...</p>
-            </div>
+  
+        <!-- Istoric, Medie, Teme -->
+        <div *ngIf="selectedTab === 'istoric'">
+          <h2 class="text-xl font-bold mb-2">Istoric Note</h2>
+          <ul>
+            <li *ngFor="let i of istoricNote">
+              {{ i.an }}, Semestrul {{ i.semestru }} – {{ i.materie }}: {{ i.valoare }}
+            </li>
+          </ul>
+  
+          <div class="mt-4">
+            <h2 class="text-xl font-bold">Media Generală</h2>
+            <p>{{ mediaGenerala }}</p>
+          </div>
+  
+          <div class="mt-4">
+            <h2 class="text-xl font-bold">Note pe teme</h2>
+            <ul>
+              <li *ngFor="let t of teme">
+                {{ t.materie }} – {{ t.titlu }}: {{ t.nota }}
+              </li>
+            </ul>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-<router-outlet></router-outlet>
+  </div>
+  
+  <router-outlet></router-outlet>
+  

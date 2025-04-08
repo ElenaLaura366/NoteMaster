@@ -44,4 +44,29 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.post("/reset-password", async (req, res) => {
+  const { email, newPassword } = req.body;
+
+  try {
+    const student = await Student.findOne({ email });
+    if (!student) {
+      return res.status(404).send({ message: "Utilizatorul nu a fost găsit." });
+    }
+
+    // Comparăm cu parola veche (în clar)
+    if (student.password === newPassword) {
+      return res.status(409).send({ message: "Noua parolă nu poate fi identică cu parola veche." });
+    }
+
+    // Dacă e validă, o actualizăm
+    student.password = newPassword;
+    await student.save();
+
+    res.status(200).send({ message: "Parola a fost resetată cu succes." });
+  } catch (err) {
+    res.status(500).send({ message: "Eroare internă. Încearcă din nou." });
+  }
+});
+
+
 module.exports = router;

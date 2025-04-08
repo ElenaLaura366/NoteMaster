@@ -37,27 +37,29 @@ export class LoginComponent {
       const { email, password } = this.loginForm.value;
       this.authService.login(email!, password!).subscribe({
         next: (response) => {
-
           console.log('Login successful', response);
-          // Resetezi eventualele mesaje de eroare
           this.nameError = null;
           this.passwordError = null;
-          this.router.navigate(['/student-profile']);
+  
+          // Redirecționare pe baza adresei de email
+          if (email!.endsWith('@student.com')) {
+            this.router.navigate(['/student-profile']);
+          } else if (email!.endsWith('@teacher.com')) {
+            this.router.navigate(['/teacher-profile']);
+          } else {
+            // fallback: alt domeniu, poți redirecționa către o pagină generică sau dashboard
+            this.router.navigate(['/']);
+          }
         },
         error: (error) => {
           console.error('Login failed', error);
-
-          // Verifici status-ul pentru a afișa mesajele specifice
           if (error.status === 404) {
-            // utilizator inexistent
-            this.nameError = 'Numele de utilizator nu a fost găsit.';
+            this.nameError = 'Adresa de email nu a fost găsită.';
             this.passwordError = null;
           } else if (error.status === 401) {
-            // parolă greșită
             this.passwordError = 'Parola introdusă este incorectă.';
             this.nameError = null;
           } else {
-            // alt tip de eroare
             this.nameError = 'A apărut o eroare, te rugăm să încerci din nou.';
             this.passwordError = null;
           }
@@ -65,6 +67,7 @@ export class LoginComponent {
       });
     }
   }
+  
 
   onResetPassword() {
     console.log('Navigare către reset-password');

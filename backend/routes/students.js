@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Student = require("../models/Student");
+const verifyToken = require('../middlewares/verifyToken');
 
 router.get("/", async (req, res) => {
   const students = await Student.find().populate({
@@ -42,6 +43,17 @@ router.get("/me", async (req, res) => {
   } catch (err) {
     console.error("Eroare la /me:", err);
     res.status(500).json({ message: "Eroare la obținerea datelor studentului" });
+  }
+});
+
+router.get('/profile', verifyToken, async (req, res) => {
+  console.log("🔥 req.user in /profile:", req.user); 
+  try {
+    const student = await Student.findOne({ email: req.user.email }).populate('grades.subject');
+    if (!student) return res.status(404).json({ message: 'Student not found' });
+    res.json(student);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 

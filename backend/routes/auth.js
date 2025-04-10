@@ -28,7 +28,7 @@ router.post("/login", async (req, res) => {
     }
 
     // 3. Dacă userul există și parola e corectă, emite token
-    const token = jwt.sign({ userId: student._id }, "your_jwt_secret", {
+    const token = jwt.sign({ userId: student._id, email: student.email }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
     res.status(200).json({

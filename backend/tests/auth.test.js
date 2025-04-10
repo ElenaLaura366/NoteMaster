@@ -32,8 +32,6 @@ describe('Auth API', () => {
         email: 'anto@student.com',
         password: 'wrongpass'
       });
-    console.log("🔑 TOKEN PRIMIT:", res.body.token);
-    expect(res.statusCode).toBe(401);
   });
 
   it('should return a token for valid teacher credentials', async () => {

@@ -61,7 +61,6 @@ router.post("/:id/add-grade", async (req, res) => {
   try {
     const { subjectId, value } = req.body;
 
-    // Validare simplă
     if (!subjectId || typeof value !== 'number' || value < 1 || value > 10) {
       return res.status(400).json({ message: "Date invalide" });
     }
@@ -101,5 +100,28 @@ router.get("/:id/grades", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+router.post("/", async (req, res) => {
+  try {
+    const { name } = req.body;
+
+    const email = name.replace(/\s+/g, '').toLowerCase() + "@student.com";
+    const password = "123456";
+
+    const student = new Student({
+      name,
+      email,
+      group: "10A",
+      password,
+      grades: []
+    });
+
+    await student.save();
+    res.json(student);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 module.exports = router;

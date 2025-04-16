@@ -26,7 +26,6 @@ export class LoginComponent {
     ]),
   });
 
-  // Variabile pentru erorile de la server
   nameError: string | null = null;
   passwordError: string | null = null;
 
@@ -41,13 +40,11 @@ export class LoginComponent {
           this.nameError = null;
           this.passwordError = null;
   
-          // Redirecționare pe baza adresei de email
           if (email!.endsWith('@student.com')) {
             this.router.navigate(['/student-profile']);
           } else if (email!.endsWith('@teacher.com')) {
             this.router.navigate(['/teacher-profile']);
           } else {
-            // fallback: alt domeniu, poți redirecționa către o pagină generică sau dashboard
             this.router.navigate(['/']);
           }
         },
@@ -68,7 +65,6 @@ export class LoginComponent {
     }
   }
   
-
   onResetPassword() {
     console.log('Navigare către reset-password');
     this.router.navigate(['/reset-password']);

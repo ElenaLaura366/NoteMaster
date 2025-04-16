@@ -55,4 +55,6 @@ export class StudentProfileComponent implements OnInit {
   selectTab(tab: string) {
     this.selectedTab = tab;
   }
+
+  
 }

@@ -1,36 +1,83 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { StudentService } from '../services/student.service';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-teacher-profile',
-  imports: [RouterOutlet, CommonModule],
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, FormsModule],
   templateUrl: './teacher-profile.component.html',
   styleUrl: './teacher-profile.component.css'
 })
-export class TeacherProfileComponent {
-delElev() {
-throw new Error('Method not implemented.');
-}
-addElev() {
-throw new Error('Method not implemented.');
-}
-
+export class TeacherProfileComponent implements OnInit {
   selectedTab: string | null = null;
 
-  note = [
-    { materie: 'Matematică', valoare: 9 },
-    { materie: 'Română', valoare: 8 },
-    { materie: 'Fizică', valoare: 10 }
-  ];
+  elevi: any[] = [];
+  subjects: any[] = [];
 
-  elevi = ['Popa Isabela', 'Istrate Mihaela', 'Dumbravă Francesca', 'Popescu Andrei', 'Ionescu Mihai', 'Dumitrescu Maria', 'Vasile Elena', 'Radu Andreea', 'Marin Alina'];
+  selectedStudentId: string = '';
+  selectedSubjectId: string = '';
+  nota: number | null = null;
+  studentGrades: any[] = [];
+  selectedStudentForHistory: string = '';
+
+  constructor(private http: HttpClient, private studentService: StudentService) {}
+
+  ngOnInit(): void {
+    this.loadElevi();
+    this.loadMaterii();
+  }
+
+  loadElevi() {
+    this.http.get<any[]>('http://localhost:5000/api/students').subscribe(data => {
+      this.elevi = data;
+    });
+  }
+
+  loadMaterii() {
+    this.http.get<any[]>('http://localhost:5000/api/subjects').subscribe(data => {
+      this.subjects = data;
+    });
+  }
+
+  addNote() {
+    if (!this.selectedStudentId || !this.selectedSubjectId || this.nota == null) {
+      alert("Completează toate câmpurile!");
+      return;
+    }
+
+    this.studentService
+      .addGradeToStudent(this.selectedStudentId, this.selectedSubjectId, this.nota)
+      .subscribe({
+        next: () => {
+          alert("✅ Notă adăugată cu succes!");
+          this.nota = null;
+        },
+        error: () => alert("❌ Eroare la adăugarea notei")
+      });
+  }
+
+  delElev() {
+    throw new Error('Method not implemented.');
+  }
+
+  addElev() {
+    throw new Error('Method not implemented.');
+  }
 
   selectTab(tab: string) {
     this.selectedTab = tab;
   }
 
-  addNote() {
-    throw new Error('Method not implemented.');
+  loadGradesForStudent(studentId: string) {
+    this.studentService.getStudentGrades(studentId).subscribe({
+      next: (grades) => {
+        this.studentGrades = grades as any[];
+      },
+      error: () => alert("Eroare la încărcarea notelor elevului.")
+    });
   }
 }

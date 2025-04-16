@@ -21,13 +21,9 @@ router.post("/login", async (req, res) => {
       return res.status(404).send("User not found");
     }
 
-    // 2. Dacă există, compară parola
     if (student.password !== password) {
-      // 401: parola greșită
       return res.status(401).send("Wrong password");
     }
-
-    // 3. Dacă userul există și parola e corectă, emite token
     const token = jwt.sign({ userId: student._id, email: student.email }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });

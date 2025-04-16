@@ -19,7 +19,7 @@ module.exports = (req, res, next) => {
     }
 
     req.user = decoded;
-    console.log("🔐 decoded token:", decoded); // poți lăsa temporar pentru debugging
+    console.log("🔐 decoded token:", decoded);
     next();
   });
 };

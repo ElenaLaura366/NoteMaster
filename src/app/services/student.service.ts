@@ -13,4 +13,16 @@ export class StudentService {
   getStudentProfile(): Observable<any> {
     return this.http.get(this.apiUrl);
   }
+
+  addGradeToStudent(studentId: string, subjectId: string, value: number): Observable<any> {
+    return this.http.post(`http://localhost:5000/api/students/${studentId}/add-grade`, {
+      subjectId,
+      value
+    });
+  }
+
+  getStudentGrades(studentId: string) {
+    return this.http.get(`http://localhost:5000/api/students/${studentId}/grades`);
+  }
+  
 }

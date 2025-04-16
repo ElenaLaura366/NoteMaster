@@ -57,4 +57,49 @@ router.get('/profile', verifyToken, async (req, res) => {
   }
 });
 
+router.post("/:id/add-grade", async (req, res) => {
+  try {
+    const { subjectId, value } = req.body;
+
+    // Validare simplă
+    if (!subjectId || typeof value !== 'number' || value < 1 || value > 10) {
+      return res.status(400).json({ message: "Date invalide" });
+    }
+
+    const student = await Student.findById(req.params.id);
+    if (!student) {
+      return res.status(404).json({ message: "Elevul nu a fost găsit" });
+    }
+
+    const newGrade = {
+      subject: subjectId,
+      value,
+      date: new Date(),
+    };
+
+    student.grades.push(newGrade);
+    await student.save();
+
+    res.json({ message: "Notă adăugată cu succes", student });
+  } catch (err) {
+    console.error("Eroare la adăugare notă:", err);
+    res.status(500).json({ message: "Eroare server" });
+  }
+});
+
+router.get("/:id/grades", async (req, res) => {
+  try {
+    const student = await Student.findById(req.params.id).populate({
+      path: "grades.subject",
+      select: "name"
+    });
+
+    if (!student) return res.status(404).json({ message: "Student not found" });
+
+    res.json(student.grades);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;

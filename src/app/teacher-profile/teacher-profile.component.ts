@@ -23,8 +23,12 @@ export class TeacherProfileComponent implements OnInit {
   nota: number | null = null;
   studentGrades: any[] = [];
   selectedStudentForHistory: string = '';
+  students: any[] = [];
+  newStudentName: string = '';
 
-  constructor(private http: HttpClient, private studentService: StudentService) {}
+  constructor(private http: HttpClient, private studentService: StudentService) {
+    this.loadAllStudents();
+  }
 
   ngOnInit(): void {
     this.loadElevi();
@@ -78,6 +82,25 @@ export class TeacherProfileComponent implements OnInit {
         this.studentGrades = grades as any[];
       },
       error: () => alert("Eroare la încărcarea notelor elevului.")
+    });
+  }
+
+  loadAllStudents() {
+    this.studentService.getAllStudents().subscribe({
+      next: (data) => this.students = data as any[],
+      error: () => alert("Eroare la încărcarea elevilor")
+    });
+  }
+  
+  addStudent() {
+    if (!this.newStudentName.trim()) return;
+  
+    this.studentService.addStudent(this.newStudentName).subscribe({
+      next: () => {
+        this.newStudentName = '';
+        this.loadAllStudents();
+      },
+      error: () => alert("Eroare la adăugarea elevului")
     });
   }
 }

@@ -33,46 +33,44 @@
                     Adaugă Nota
                   </button>
                 </div>
-              </div>              
+            </div>              
             <div *ngIf="selectedTab === 'elevi'">
                 <h2 class="text-2xl font-bold">Lista tuturor elevilor</h2>
                 <ul>
-                    <li *ngFor="let elev of elevi" class="my-1 flex items-center justify-between text-lg">{{ elev }}</li>
+                    <li *ngFor="let elev of students" class="my-1 flex items-center justify-between text-lg">
+                      {{ elev.name }}
+                    </li>
                 </ul>
-                <h2 class="text-2xl font-bold mt-4">Gestionează elevi</h2>
+                <h2 class="text-2xl font-bold mt-4">Adaugă elev</h2>
                 <div class="flex flex-col justify-center">
-                    <input type="text" placeholder="Nume elev" class="border border-black p-2 rounded my-2">
-                    <input type="text" placeholder="Prenume elev" class="border border-black p-2 rounded">
-                    <div class="flex">
-                        <button class="w-[50%] cursor-pointer mt-2 me-2 p-2 bg-linear-to-r from-blue-800 to-indigo-800 text-white rounded " (click)="addElev()">Adaugă Elev</button>
-                        <button class="w-[50%] cursor-pointer mt-2 p-2 bg-linear-to-r from-blue-800 to-indigo-800 text-white rounded " (click)="delElev()">Elimină Elev</button>
-                    </div>
+                    <input [(ngModel)]="newStudentName" type="text" placeholder="Nume complet elev" class="border border-black p-2 rounded my-2">
+                    <button class="cursor-pointer mt-2 p-2 bg-gradient-to-r from-blue-800 to-indigo-800 text-white rounded " (click)="addStudent()">Adaugă Elev</button>
                 </div>
-            </div>
+            </div>              
             <div *ngIf="selectedTab === 'istoric'">
                 <h2 class="text-2xl font-bold mb-4">Istoric Note Elevi</h2>
                 <label for="student-select" class="text-lg font-medium">Selectează elevul:</label>
                 <select id="student-select" [(ngModel)]="selectedStudentForHistory" (change)="loadGradesForStudent(selectedStudentForHistory)" class="border border-black p-2 rounded mb-4">
-                  <option value="" disabled selected>-- Alege un elev --</option>
-                  <option *ngFor="let elev of elevi" [value]="elev._id">{{ elev.name }}</option>
+                    <option value="" disabled selected>-- Alege un elev --</option>
+                    <option *ngFor="let elev of elevi" [value]="elev._id">{{ elev.name }}</option>
                 </select>
                 <div *ngIf="studentGrades.length > 0">
-                  <table class="table-auto w-full border mt-2">
-                    <thead>
-                      <tr class="bg-gray-100">
-                        <th class="border p-2">Materie</th>
-                        <th class="border p-2">Nota</th>
-                        <th class="border p-2">Data</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let grade of studentGrades">
-                        <td class="border p-2">{{ grade.subject.name }}</td>
-                        <td class="border p-2">{{ grade.value }}</td>
-                        <td class="border p-2">{{ grade.date | date:'mediumDate' }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                    <table class="table-auto w-full border mt-2">
+                        <thead>
+                        <tr class="bg-gray-100">
+                            <th class="border p-2">Materie</th>
+                            <th class="border p-2">Nota</th>
+                            <th class="border p-2">Data</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let grade of studentGrades">
+                                <td class="border p-2">{{ grade.subject.name }}</td>
+                                <td class="border p-2">{{ grade.value }}</td>
+                                <td class="border p-2">{{ grade.date | date:'mediumDate' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div *ngIf="studentGrades.length === 0 && selectedStudentForHistory">
                   <p class="mt-4 text-gray-600">Acest elev nu are încă note înregistrate.</p>

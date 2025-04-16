@@ -24,5 +24,13 @@ export class StudentService {
   getStudentGrades(studentId: string) {
     return this.http.get(`http://localhost:5000/api/students/${studentId}/grades`);
   }
+
+  addStudent(name: string) {
+    return this.http.post('http://localhost:5000/api/students', { name });
+  }
+  
+  getAllStudents() {
+    return this.http.get('http://localhost:5000/api/students');
+  }  
   
 }
